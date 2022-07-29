@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カードゲーム</title>
+    <script src="./js/cardgame.js"></script>
+</head>
+<body>
+    <a href="./index.html">home</a>
+    <h2>カードゲームオンライン対戦ツール</h2>
+    <input type="file" id="txtfile">
+    <br>
+    <input type="button" value="シャッフル" onclick="shuffle()">
+    <hr>
+    <input type="button" value="戻す" onclick="returnDeck()">
+    <input type="button" value="引く" onclick="drawDeck()">
+    <hr>
+    <duv id="card_place">
+    </duv>
+</body>
+</html>

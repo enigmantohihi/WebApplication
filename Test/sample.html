@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>箱の展開</title>
+    <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"></script>
+</head>
+<body>
+  <h1>箱の展開</h1>
+  <p>
+    箱が展開するアニメーションを作った。板の付け根に関節の役割を果たす空オブジェクトを置き、<br>
+    その関節を動かすことで箱が展開するようなアニメーションを作った。<br>
+    展開→閉じる→箱の面が回転する→最初に戻る という流れで行われる。
+  </p>
+  <script>
+    // ページの読み込みを待つ
+    window.addEventListener('DOMContentLoaded', init);  
+    function init() {
+      // サイズを指定
+      const width = 800
+      const height = 600;
+
+      // レンダラーを作成
+      var renderer = new THREE.WebGLRenderer();
+      document.body.appendChild(renderer.domElement);
+      renderer.setSize(width, height);
+      // 背景の色を設定
+      renderer.setClearColor(0xf0e68c);
+
+      // シーンを作成
+      const scene = new THREE.Scene();
+
+      // カメラを作成  
+      const camera = new THREE.PerspectiveCamera(45, width / height);
+      camera.fov = 10;
+      // カメラの初期座標を設定
+      camera.position.set(0, 2, 5);
+      
+
+      // カメラコントローラーを作成
+      const controls = new THREE.OrbitControls(camera, document.body);       
+
+      //light
+      const light = new THREE.PointLight(0xFFFFFF, 2, 50, 1.0);
+      //scene.add(light);
+
+      const light2 = new THREE.AmbientLight(0xFFFFFF, 0.5);
+      scene.add(light2);
+
+      // const light3 = new THREE.SpotLight(0xFFFFFF, 4, 30, Math.PI / 4, 10, 0.5);
+      // light3.castShadow = true; 
+      // light3.position.set(0,10,0);
+      // scene.add(light3);
+
+      const light4 = new THREE.DirectionalLight(0xFFFFFF, 0.4);
+      light4.position.set(0,2,0);
+      light4.castShadow = true; 
+      scene.add(light4);
+      const light5 = new THREE.DirectionalLight(0xFFFFFF, 0.4);
+      light5.position.set(0,-2,0);
+      scene.add(light5);
+      const light6 = new THREE.DirectionalLight(0xFFFFFF, 0.4);
+      light6.position.set(0,0,2);
+      scene.add(light6);
+      const light7 = new THREE.DirectionalLight(0xFFFFFF, 0.4);
+      light7.position.set(0,0,-2);
+      scene.add(light7);
+
+      // helper
+      // const gridHelper = new THREE.GridHelper(2,10); // size, step
+      // scene.add(gridHelper);
+      // const axisHelper = new THREE.AxisHelper(2); //軸の長さ　X：赤、Y：緑、z：青
+      // scene.add(axisHelper);
+      const backBoxG = new THREE.BoxGeometry( 20, 20, 20 );
+      const backBoxM = new THREE.MeshPhongMaterial( {color: 0x000000,side:THREE.DoubleSide} );
+      const backBox = new THREE.Mesh( backBoxG, backBoxM );
+      backBox.receiveShadow = true;
+      //scene.add(backBox);
+
+      // const groundG = new THREE.PlaneGeometry(10,10);
+      // const groundM = new THREE.MeshPhongMaterial({color:0xf0f8ff,side:THREE.DoubleSide});
+      // const ground = new THREE.Mesh(groundG,groundM);
+      // ground.receiveShadow = true;
+      // ground.position.y = -2;
+      // ground.rotation.x = Math.PI/2;
+      // scene.add(ground);
+
+      const boxes = [];
+      const flags = [];
+      const counts = [];
+      const root = new THREE.Group();
+      for(let y=-1;y<2;y++){
+        for(let x=-5;x<6;x++){
+          for(let z=-5;z<6;z++){
+            const box = generateBox();
+            const posX = x*4 + z*2;
+            const posY = y*5 + x*2;
+            const posZ = -z*2 + -y*2;
+            box.position.set(posX,posY,posZ);
+            root.add(box);
+            boxes.push(box);
+
+            const flag = [];
+            for(let i=0;i<4;i++){
+              const a = new Boolean(false);
+              flag.push(a);
+            }
+            flags.push(flag);
+            counts.push(0);
+          }
+        }
+      }
+
+      
+      scene.add(root);
+
+
+      update();
+
+      // 毎フレーム時に実行されるループイベントです
+
+      /*
+      1 開ける
+      2 完全に開いたらフラグをオフにする
+      3 全部がオフになったら閉じる
+      4 完全に閉じたらフラグをオンにする
+      5 全部がオンになったら1に戻る
+      */
+     
+
+      function update() {
+        root.rotation.y += 0.002;
+        for(let i=0;i<boxes.length;i++){
+          const box = boxes[i];
+          box.rotation.y += 0.02;
+
+          const shaft1 = box.children[2];
+          const shaft2 = box.children[3];
+          const shaft3 = box.children[4];
+          const shaft4 = box.children[5];
+          const shaft5 = shaft1.children[1];
+
+          const plane0 = box.children[1];
+          const plane1 = shaft1.children[0];
+          const plane2 = shaft2.children[0];
+          const plane3 = shaft3.children[0];
+          const plane4 = shaft4.children[0];
+          const plane5 = shaft5.children[0];
+
+
+          let flag = flags[i];
+          let count = counts[i];
+          
+          if(count<1){
+            if(flag[0]){
+              shaft2.rotation.y -= 0.01;
+              if(shaft2.rotation.y<0) flag[0] = false;
+            } else {
+              shaft2.rotation.y += 0.01;
+              if(shaft2.rotation.y>(Math.PI/2)) flag[0] = true;
+            }
+
+            if(flag[1]){
+              shaft3.rotation.x -= 0.01;
+              if(shaft3.rotation.x<0) flag[1] = false;
+            } else {
+              shaft3.rotation.x += 0.01;
+              if(shaft3.rotation.x>(Math.PI/2)) flag[1] = true;
+            }
+
+            if(flag[2]){
+              shaft4.rotation.x += 0.01;
+              if(shaft4.rotation.x>0) flag[2] = false;
+            } else {
+              shaft4.rotation.x -= 0.01;
+              if(shaft4.rotation.x<-(Math.PI/2)) flag[2] = true;
+            }
+
+            if(flag[3]){
+              shaft1.rotation.y += 0.01;
+              shaft5.rotation.y += 0.01;
+              if(shaft1.rotation.y>0) flag[3] = false;
+            } else {
+              shaft1.rotation.y -= 0.01;
+              shaft5.rotation.y -= 0.01;
+              if(shaft1.rotation.y<-(Math.PI/2)) {
+                flag[3] = true;
+                counts[i]++;
+              }
+            }
+          } else if(count <2){
+            plane0.rotation.z += 0.05;
+            plane1.rotation.z += 0.05;
+            plane2.rotation.z += 0.05;
+            plane3.rotation.z += 0.05;
+            plane4.rotation.z += 0.05;
+            plane5.rotation.z += 0.05;
+            if(plane0.rotation.z >= Math.PI) counts[i]++;
+          } else if(count <3){
+            plane0.rotation.z -= 0.05;
+            plane1.rotation.z -= 0.05;
+            plane2.rotation.z -= 0.05;
+            plane3.rotation.z -= 0.05;
+            plane4.rotation.z -= 0.05;
+            plane5.rotation.z -= 0.05;
+            if(plane0.rotation.z <= 0) counts[i] = 0;
+          }
+        }
+        
+        
+        // レンダリング
+        renderer.render(scene, camera);
+        requestAnimationFrame(update);
+
+        
+      }
+    }
+    function generateBox() {
+      const PLANE = new THREE.Group();
+      const boxG = new THREE.BoxGeometry( 1, 1, 1 );
+      const boxM = new THREE.MeshBasicMaterial( {color: 0x000000, wireframe:true} );
+      const cube = new THREE.Mesh( boxG, boxM );
+      cube.position.y = 0.5;
+      PLANE.add( cube );
+
+
+      const colors = ["0xffd700","0x228b22","0x4169e1","0x40e0d0","0xe6e6fa","0x7b68ee"];
+
+      const color0 = colors[Math.floor(Math.random()*colors.length)];
+      const color1 = colors[Math.floor(Math.random()*colors.length)];
+      const color2 = colors[Math.floor(Math.random()*colors.length)];
+      //const color0 = "0x" + Math.floor(Math.random() * 16777215).toString(16);
+      // const color0 = "0xffd700";
+      //const color1 = "0x" + Math.floor(Math.random() * 16777215).toString(16);
+      // const color1 = "0x228b22";
+      //const color2 = "0x" + Math.floor(Math.random() * 16777215).toString(16);
+      // const color2 = "0x4169e1";
+      
+      const plane0 = generatePlane(color2);
+      PLANE.add(plane0);
+      plane0.rotation.x = Math.PI/2;
+
+      const shaft1 = new THREE.Group();
+      const plane1 = generatePlane(color0);
+      shaft1.add(plane1);
+      PLANE.add(shaft1);
+      shaft1.position.set(-0.5,0,0);
+      plane1.position.set(-0.5,0,0);
+      shaft1.rotation.x = Math.PI/2;
+      shaft1.rotation.y = -Math.PI/2;
+
+      const shaft2 = new THREE.Group();
+      const plane2 = generatePlane(color0);
+      shaft2.add(plane2);
+      PLANE.add(shaft2);
+      shaft2.position.set(0.5,0,0);
+      plane2.position.set(0.5,0,0);
+      shaft2.rotation.x = Math.PI/2;
+      shaft2.rotation.y = Math.PI/2;
+
+      const shaft3 = new THREE.Group();
+      const plane3 = generatePlane(color1);
+      shaft3.add(plane3);
+      PLANE.add(shaft3);
+      shaft3.position.set(0,0,-0.5);
+      plane3.position.set(0,0,-0.5);
+      plane3.rotation.x = Math.PI/2;
+      shaft3.rotation.x = Math.PI/2;
+
+      const shaft4 = new THREE.Group();
+      const plane4 = generatePlane(color1);
+      shaft4.add(plane4);
+      PLANE.add(shaft4);
+      shaft4.position.set(0,0,0.5);
+      plane4.position.set(0,0,0.5);
+      plane4.rotation.x = Math.PI/2;
+      shaft4.rotation.x = -Math.PI/2;
+
+      const shaft5 = new THREE.Group();
+      const plane5 = generatePlane(color2);
+      shaft5.add(plane5);
+      PLANE.add(shaft5);
+      shaft1.add(shaft5);
+      shaft5.position.set(-1,0,0);
+      plane5.position.set(-0.5,0,0);
+      shaft5.rotation.y = -Math.PI/2;
+
+      return PLANE;
+    }
+    function generatePlane(color) {
+      const geometry = new THREE.PlaneGeometry(1,1);
+      const material = new THREE.MeshPhongMaterial({color:Number(color),side:THREE.DoubleSide});
+      const plane = new THREE.Mesh(geometry,material);
+      plane.castShadow = true;
+      return plane;
+    }
+  </script>
+</body>
+</html>
