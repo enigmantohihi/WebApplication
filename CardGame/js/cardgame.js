@@ -1,5 +1,4 @@
-import test from 'module.js';
-
+//import test from 'module.js';
 function mdown(e) {
     console.log("mdown");
     selectID = e.target.eventParam;
@@ -69,9 +68,16 @@ function mup(e) {
 function click(){
     console.log("click");
     const card = findCard(selectID);
-    card.angle = (card.angle+90) % 360;
-    selectCard.style.transform = "rotate(" + card.angle + "deg)";
+    if(key){
+        card.mode = (card.mode+1) % card.imgPath.length;
+        selectCard.src = card.imgPath[card.mode];
+        //document.getElementById(`card${selectID}`).src = card.imgPath[card.mode];
+    } else{
+        card.angle = (card.angle+90) % 360;
+        selectCard.style.transform = "rotate(" + card.angle + "deg)";
+    }
 }
+
 
 // function createCard(){
 //     const card_root = document.getElementById("card_place");
@@ -89,7 +95,7 @@ function click(){
 function displayCard(card){
     const id = card.id;
     const cardImg = document.createElement('img');
-    cardImg.src = card.imgPath[0];
+    cardImg.src = card.imgPath[card.mode];
     cardImg.id = "card" + id;
     cardImg.width = "100";
     // cardImg.style.position = "absolute";
@@ -104,10 +110,13 @@ function createDeck(){
         const id = i;
         const imgPath = [];
         imgPath.push(imgPathList[i]);
+        imgPath.push("/Users/enigmantohihi/Desktop/WebApplication/CardGame/img/duel/back/back.jpeg");
+        //imgPath.push("/Users/enigmantohihi/Desktop/WebApplication/CardGame/img/duel/dmbd14-001c.jpeg")
         const card = new Card(id,imgPath,0,0);
         cardList.push(card);
         deckList.push(card);
     }
+    set_html();
 }
 
 function findCard(targetID){
@@ -125,19 +134,24 @@ function readFile(e){
     reader.readAsText(file[0]);
     reader.onload = function(ev){
         const originalText = reader.result;
-        const originalTextList = originalText.split('\n');
-        for(let i=0;i<originalTextList.length;i++){
-            const oneLineText = originalTextList[i];
-            const oneLineTextList = oneLineText.split(',');
-            const imgPath = oneLineTextList[0];
-            const count = (oneLineTextList.length<=1)?1:oneLineTextList[1];
-            for(let n=0;n<count;n++) {
-                //console.log(imgPath);
-                imgPathList.push(imgPath);
-            }
-        }
-        createDeck();
+        textToDeck(originalText);
     }
+}
+
+function textToDeck(fileText){
+    const originalText = fileText;
+    const originalTextList = originalText.split('\n');
+    for(let i=0;i<originalTextList.length;i++){
+        const oneLineText = originalTextList[i];
+        const oneLineTextList = oneLineText.split(',');
+        const imgPath = oneLineTextList[0];
+        const count = (oneLineTextList.length<=1)?1:oneLineTextList[1];
+        for(let n=0;n<count;n++) {
+            //console.log(imgPath);
+            imgPathList.push(imgPath);
+        }
+    }
+    createDeck();
 }
 
 function returnDeck(){
@@ -154,6 +168,8 @@ function returnDeck(){
     deckList.push(card);
     selectCard = document.getElementById(`card${selectID}`);
     if(selectCard) selectCard.remove();
+
+    set_html();
 }
 function drawDeck(){
     if(deckList.length <= 0) return;
@@ -162,6 +178,8 @@ function drawDeck(){
     outDeckList.push(card);
     const cardImg = displayCard(card);
     card_root.appendChild(cardImg);
+
+    set_html();
 }
 
 function shuffle(){
@@ -184,10 +202,33 @@ function shuffle(){
 
 function init(){
     //createCard();
-
     const file = document.getElementById("txtfile");
     file.addEventListener("change",readFile,false);
-    test(20);
+
+    document.addEventListener('keypress', keypress, false);
+    document.addEventListener('keyup', keyup, false);
+
+    const a = "jpeg";
+    const b = "0.1a";      
+    console.log(isNaN(a));        
+    console.log(isNaN(b));
+}
+
+function keypress(e) {
+    if(e.key === 'a' || e.key === 'A'){
+        key = true;
+	}
+    console.log("press_key : " + e.key);
+}
+function keyup(e) {
+    if(e.key === 'a' || e.key === 'A'){
+        key = false;
+	}
+    console.log("up_key : " + e.key);
+}
+
+function set_html(){
+    document.getElementById("deck").textContent = `デッキ残り枚数:${deckList.length}枚`;
 }
 
 const MouseState = {
@@ -213,6 +254,8 @@ let angle = 0;
 let mouseState = MouseState.normal;
 let selectID = -1;
 let selectCard;
+
+let key = false;
 
 //使用する
 const imgPathList = [];
