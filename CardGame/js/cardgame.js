@@ -1,4 +1,4 @@
-import test from './js/module.js';
+import test from 'module.js';
 
 function mdown(e) {
     console.log("mdown");
@@ -188,7 +188,6 @@ function init(){
     const file = document.getElementById("txtfile");
     file.addEventListener("change",readFile,false);
     test(20);
-    //console.log(num);
 }
 
 const MouseState = {
