@@ -1,4 +1,4 @@
-//import module from './js/module.js';
+import test from './js/module.js';
 
 function mdown(e) {
     console.log("mdown");
@@ -118,15 +118,6 @@ function findCard(targetID){
     }
 }
 
-function init(){
-    //createCard();
-
-    const file = document.getElementById("txtfile");
-    file.addEventListener("change",readFile,false);
-    //const num = module(20);
-    //console.log(num);
-}
-
 function readFile(e){
     console.log("file");
     const file = e.target.files;
@@ -189,6 +180,15 @@ function shuffle(){
     }
     deckList = newDeckList;
     deckList.forEach(card => console.log(card));
+}
+
+function init(){
+    //createCard();
+
+    const file = document.getElementById("txtfile");
+    file.addEventListener("change",readFile,false);
+    test(20);
+    //console.log(num);
 }
 
 const MouseState = {
