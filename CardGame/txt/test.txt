@@ -1,4 +1,4 @@
-/Users/enigmantohihi/Desktop/Webアプリ開発/CardGame/img/duel/dmx25-v09.jpeg,1
+./img/duel/dmx25-v09.jpeg,1
 /Users/enigmantohihi/Desktop/Webアプリ開発/CardGame/img/duel/dmex18-s13.jpeg,3
 /Users/enigmantohihi/Desktop/Webアプリ開発/CardGame/img/duel/dmex17-099a.jpeg,4
 /Users/enigmantohihi/Desktop/Webアプリ開発/CardGame/img/duel/dmex17-055a.jpeg,2

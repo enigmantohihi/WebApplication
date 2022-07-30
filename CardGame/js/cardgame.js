@@ -1,3 +1,5 @@
+//import module from './js/module.js';
+
 function mdown(e) {
     console.log("mdown");
     selectID = e.target.eventParam;
@@ -71,18 +73,18 @@ function click(){
     selectCard.style.transform = "rotate(" + card.angle + "deg)";
 }
 
-function createCard(){
-    const card_root = document.getElementById("card_place");
-    for(let i=0; i<2; i++) {
-        const id = i;
-        const imgPath = [];
-        imgPath.push("./img/duel/dmx25-v09.jpeg");
-        const card = new Card(id,imgPath,0,0);
-        cardList.push(card);
-        const cardImg = displayCard(card);
-        card_root.appendChild(cardImg);
-    }
-}
+// function createCard(){
+//     const card_root = document.getElementById("card_place");
+//     for(let i=0; i<2; i++) {
+//         const id = i;
+//         const imgPath = [];
+//         imgPath.push("./img/duel/dmx25-v09.jpeg");
+//         const card = new Card(id,imgPath,0,0);
+//         cardList.push(card);
+//         const cardImg = displayCard(card);
+//         card_root.appendChild(cardImg);
+//     }
+// }
 
 function displayCard(card){
     const id = card.id;
@@ -92,6 +94,7 @@ function displayCard(card){
     cardImg.width = "100";
     // cardImg.style.position = "absolute";
     cardImg.addEventListener("mousedown", mdown, false);
+    cardImg.addEventListener("touchstart", mdown, false);
     cardImg.eventParam = id;
     return cardImg;
 }
@@ -120,6 +123,8 @@ function init(){
 
     const file = document.getElementById("txtfile");
     file.addEventListener("change",readFile,false);
+    //const num = module(20);
+    //console.log(num);
 }
 
 function readFile(e){
