@@ -1,4 +1,3 @@
-//import test from 'module.js';
 function mdown(e) {
     console.log("mdown");
     selectID = e.target.eventParam;
@@ -100,22 +99,13 @@ function displayCard(card){
     cardImg.width = "100";
     // cardImg.style.position = "absolute";
     cardImg.addEventListener("mousedown", mdown, false);
-    cardImg.addEventListener("touchstart", mdown, false);
+    //cardImg.addEventListener("touchstart", mdown, false);
     cardImg.eventParam = id;
     return cardImg;
 }
 
 function createDeck(){
-    for(let i=0;i<imgPathList.length;i++){
-        const id = i;
-        const imgPath = [];
-        imgPath.push(imgPathList[i]);
-        imgPath.push("/Users/enigmantohihi/Desktop/WebApplication/CardGame/img/duel/back/back.jpeg");
-        //imgPath.push("/Users/enigmantohihi/Desktop/WebApplication/CardGame/img/duel/dmbd14-001c.jpeg")
-        const card = new Card(id,imgPath,0,0);
-        cardList.push(card);
-        deckList.push(card);
-    }
+    deckList = cardList.concat();
     set_html();
 }
 
@@ -125,33 +115,6 @@ function findCard(targetID){
             return cardList[i];
         }
     }
-}
-
-function readFile(e){
-    console.log("file");
-    const file = e.target.files;
-    const reader = new FileReader();
-    reader.readAsText(file[0]);
-    reader.onload = function(ev){
-        const originalText = reader.result;
-        textToDeck(originalText);
-    }
-}
-
-function textToDeck(fileText){
-    const originalText = fileText;
-    const originalTextList = originalText.split('\n');
-    for(let i=0;i<originalTextList.length;i++){
-        const oneLineText = originalTextList[i];
-        const oneLineTextList = oneLineText.split(',');
-        const imgPath = oneLineTextList[0];
-        const count = (oneLineTextList.length<=1)?1:oneLineTextList[1];
-        for(let n=0;n<count;n++) {
-            //console.log(imgPath);
-            imgPathList.push(imgPath);
-        }
-    }
-    createDeck();
 }
 
 function returnDeck(){
@@ -202,16 +165,9 @@ function shuffle(){
 
 function init(){
     //createCard();
-    const file = document.getElementById("txtfile");
-    file.addEventListener("change",readFile,false);
 
     document.addEventListener('keypress', keypress, false);
     document.addEventListener('keyup', keyup, false);
-
-    const a = "jpeg";
-    const b = "0.1a";      
-    console.log(isNaN(a));        
-    console.log(isNaN(b));
 }
 
 function keypress(e) {
@@ -252,7 +208,7 @@ let x;
 let y;
 let angle = 0;
 let mouseState = MouseState.normal;
-let selectID = -1;
+let selectID;
 let selectCard;
 
 let key = false;
