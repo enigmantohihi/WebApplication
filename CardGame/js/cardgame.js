@@ -77,27 +77,14 @@ function click(){
     }
 }
 
-
-// function createCard(){
-//     const card_root = document.getElementById("card_place");
-//     for(let i=0; i<2; i++) {
-//         const id = i;
-//         const imgPath = [];
-//         imgPath.push("./img/duel/dmx25-v09.jpeg");
-//         const card = new Card(id,imgPath,0,0);
-//         cardList.push(card);
-//         const cardImg = displayCard(card);
-//         card_root.appendChild(cardImg);
-//     }
-// }
-
-function displayCard(card){
+function displayCard(card,mode=0){
     const id = card.id;
+    //const cardMode = (mode>=0)?mode:card.mode;
     const cardImg = document.createElement('img');
+    card.mode = mode;
     cardImg.src = card.imgPath[card.mode];
     cardImg.id = "card" + id;
-    cardImg.width = "100";
-    // cardImg.style.position = "absolute";
+    cardImg.width = "80";
     cardImg.addEventListener("mousedown", mdown, false);
     //cardImg.addEventListener("touchstart", mdown, false);
     cardImg.eventParam = id;
@@ -105,7 +92,18 @@ function displayCard(card){
 }
 
 function createDeck(){
-    deckList = cardList.concat();
+    //deckList = cardList.concat();
+
+    deckList = cardList.filter(card => {
+        return card.type == 0;
+    });
+    otherList = cardList.filter(card => {
+        return card.type == 1;
+    });
+    exDeckList = cardList.filter(card => {
+        return card.type == 2;
+    });
+    setOtherCard();
     set_html();
 }
 
@@ -136,13 +134,22 @@ function returnDeck(){
 }
 function drawDeck(){
     if(deckList.length <= 0) return;
-    const card_root = document.getElementById("card_place");
+    const card_root = document.getElementById("card_normal");
     const card = deckList.shift();
     outDeckList.push(card);
-    const cardImg = displayCard(card);
+    const cardImg = displayCard(card,1);
     card_root.appendChild(cardImg);
 
     set_html();
+}
+
+function setOtherCard(){
+    for(let i=0;i<otherList.length;i++){
+        const card_root = document.getElementById("card_other");
+        const card = otherList[i];
+        const cardImg = displayCard(card);
+        card_root.appendChild(cardImg);
+    }
 }
 
 function shuffle(){
@@ -165,7 +172,7 @@ function shuffle(){
 
 function init(){
     //createCard();
-
+    //document.addEventListener("mouseover", mouseover, false);
     document.addEventListener('keypress', keypress, false);
     document.addEventListener('keyup', keyup, false);
 }
@@ -195,12 +202,12 @@ const MouseState = {
 };
 
 const Card = class{
-    constructor(id,imgPath,angle,mode){
+    constructor(id,imgPath,angle,mode,type){
         this.id = id;
         this.imgPath = imgPath;
-        //this.imgPath.push(imgPath);
         this.angle = angle;
         this.mode = mode;
+        this.type = type;
     }
 };
 
@@ -221,6 +228,12 @@ const cardList = [];
 
 //デッキの中のカードが入る
 let deckList = [];
+
+//超次元ゾーンなど最初から見えるゾーンのカード
+let otherList = []; 
+
+//GRゾーンなどメインのデッキとは別のデッキ
+let exDeckList = [];
 
 //手札や盤面などのデッキ外のカードが入る
 const outDeckList = [];

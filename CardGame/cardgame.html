@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./css/stylesheet.css">
     <script src="./js/cardgame.js"></script>
     <script src="./js/module.js"></script>
+    <script src="./js/action.js"></script>
 </head>
 <body>
     <a href="./index.html">home</a>
@@ -19,10 +20,18 @@
     <input type="button" value="戻す" onclick="returnDeck()">
     <input type="button" value="引く" onclick="drawDeck()">
     <hr>
-    <div id="deck" class="box">
+    <div class="box" id="deck">
         デッキ残り枚数:x枚
+        ドロップで戻せるよ!(予定)
     </div>
-    <duv id="card_place">
-    </duv>
+    <hr>
+    <div id="card_place">
+        <div id="card_other">
+        
+        </div>
+        <duv id="card_normal">
+        </duv>
+    </div>
+    
 </body>
 </html>

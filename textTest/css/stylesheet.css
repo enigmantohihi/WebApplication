@@ -1,0 +1,23 @@
+.box {
+    border: #000000 1px solid;
+    padding:10px;
+}
+
+.parent {
+    border: #000000 1px solid; /*境界線の指定*/
+    padding:10px;
+    display: flex;
+}
+
+.child1 {
+    border: #000000 1px solid; /*境界線の指定*/
+    padding:10px;
+    flex-grow: 1;
+    background: rgb(255, 223, 223);
+}
+.child2 {
+    border: #000000 1px solid; /*境界線の指定*/
+    padding:10px;
+    flex-grow: 0.2;
+    background: rgb(240, 238, 118);
+}

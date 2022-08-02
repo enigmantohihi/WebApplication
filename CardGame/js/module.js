@@ -11,14 +11,19 @@ function readFile(e){
 
 function textToDeck(fileText){
     let id = 1;
+    let type = 0;
     const originalText = fileText;
     //1行ずつ分割
     const originalTextList = originalText.split(/[\n]/);
     for(let i=0;i<originalTextList.length;i++){
         const lineText = originalTextList[i];
-        if(!lineText.match(/[\S]/)){
+        if(!lineText.match(/[\S]/) || lineText.match(/^\/{2}/)){
             //行が改行のみor空白,スペースだけなら何もしない
+            //先頭に'//'をつけるとその行も何もしない
 
+        }else if(lineText.match(/^-*\d+-*$/)){
+            type = Number(lineText.match(/\d+/));
+            console.log("match:" + type);
         }else{
             //行を更に[, 、]で分割
             const lineTextList = lineText.split(/[,、]/);
@@ -44,7 +49,7 @@ function textToDeck(fileText){
             }
 
             for(let j=0;j<cardCount;j++){              
-                const card = new Card(id,imgPathList,0,0);
+                const card = new Card(id,imgPathList,0,0,type);
                 cardList.push(card);
                 id++;
             }
