@@ -1,9 +1,22 @@
 function mdown(e) {
     console.log("mdown");
     selectID = e.target.eventParam;
+    console.log("id:" + selectID);
     selectCard = document.getElementById(`card${selectID}`);
-    mouseState = MouseState.down;
 
+    //選択したカードのクラス名を追加する、それ以外のカードはクラス名削除
+    for(let i=0;i<outDeckList.length;i++){
+        const id = outDeckList[i].id;
+        if(id==selectID) document.getElementById(`card${id}`).className = "selectCard";
+        else document.getElementById(`card${id}`).classList.remove("selectCard");
+    }
+    for(let i=0;i<otherList.length;i++){
+        const id = otherList[i].id;
+        if(id==selectID) document.getElementById(`card${id}`).className = "selectCard";
+        else document.getElementById(`card${id}`).classList.remove("selectCard");
+    }
+
+    mouseState = MouseState.down;
     if(e.type === "mousedown") {
         var event = e;
     } else {
@@ -72,7 +85,7 @@ function click(){
         selectCard.src = card.imgPath[card.mode];
         //document.getElementById(`card${selectID}`).src = card.imgPath[card.mode];
     } else{
-        card.angle = (card.angle+90) % 360;
+        card.angle = (card.angle+90) % 180;
         selectCard.style.transform = "rotate(" + card.angle + "deg)";
     }
 }
@@ -118,13 +131,15 @@ function findCard(targetID){
 function returnDeck(){
     const card = findCard(selectID);//outDeckList.shift();
     if(!card) return;
-    let index;
-    for(let i=0;i<outDeckList.length;i++){
-        if(card.id == outDeckList[i].id){
-            index = i;
-            break;
-        } 
-    }
+    let index = outDeckList.findIndex(outDeckCard =>{
+        return card.id == outDeckCard.id;
+    });
+    // for(let i=0;i<outDeckList.length;i++){
+    //     if(card.id == outDeckList[i].id){
+    //         index = i;
+    //         break;
+    //     } 
+    // }
     outDeckList.splice(index,1);
     deckList.push(card);
     selectCard = document.getElementById(`card${selectID}`);

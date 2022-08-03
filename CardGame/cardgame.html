@@ -19,6 +19,7 @@
     <hr>
     <input type="button" value="戻す" onclick="returnDeck()">
     <input type="button" value="引く" onclick="drawDeck()">
+    <input type="button" id="allDisplayButton" value="一覧表示" onclick="allDisplay()">
     <hr>
     <div class="box" id="deck">
         デッキ残り枚数:x枚
@@ -26,11 +27,17 @@
     </div>
     <hr>
     <div id="card_place">
+        <div id="allDisplay">
+
+        </div>
+        
         <div id="card_other">
         
         </div>
         <duv id="card_normal">
+
         </duv>
+        
     </div>
     
 </body>

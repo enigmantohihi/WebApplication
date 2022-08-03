@@ -3,6 +3,11 @@
     padding:10px;
 }
 
+.selectCard {
+    border: #a6ff00 5px solid; /*境界線の指定*/
+    padding:1px;
+}
+
 #deck {
     text-align: center;
     height: 40px;
