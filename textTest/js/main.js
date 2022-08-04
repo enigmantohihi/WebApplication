@@ -1,53 +1,3 @@
-function button(){
-    splitTest();
-}
-
-function splitTest(){
-    let id = 1;
-    const originalText = document.getElementById("text").value;;
-    //1行ずつ分割
-    const originalTextList = originalText.split(/[\n]/);
-    for(let i=0;i<originalTextList.length;i++){
-        const lineText = originalTextList[i];
-        console.log("line:" + lineText);
-        if(!lineText.match(/[\S]/)){
-            //行が改行のみor空白,スペースだけなら何もしない
-
-        }else{
-            //行を更に[, 、]で分割
-            const lineTextList = lineText.split(/[,、]/);
-            console.log("lineTextList:" + lineTextList);
-            
-            //読み込んだ画像パスをpush
-            const imgPathList = [];
-
-            //何枚デッキに入るか
-            let cardCount = 1;
-
-            for(let n=0;n<lineTextList.length;n++){
-                const text = lineTextList[n];
-                if(isNaN(text)){
-                    imgPathList.push(text);
-                }else{
-                    cardCount = text;
-                }
-            }
-            console.log("imgPathList:" + imgPathList);
-            console.log("count:" + cardCount);
-
-            for(let j=0;j<cardCount;j++){
-                const split = new Split(id,imgPathList);
-                list.push(split);
-                id++;
-            }
-        }
-    }
-
-    list.forEach(split =>
-        console.log(split)
-    );
-}
-
 function mousemove(e){
     //同様にマウスとタッチの差異を吸収
     if(e.type === "mousemove") {
@@ -62,34 +12,34 @@ function mousemove(e){
     //要素内の相対座標を取得
     const x = e.clientX;
     const y = e.clientY;
-    const x1 = event.pageX;
-    const y1 = event.pageY;
+    const client_text = document.getElementById("client_pos");
+    client_text.textContent = `client{ x:${x}, y:${y}}`;
+    
+    const x1 = event.screenX;
+    const y1 = event.screenY;
+    const screen_text = document.getElementById("screen_pos");
+    screen_text.textContent = `screen{ x:${x1}, y:${y1}}`;
 
-    const text = document.getElementById("pos");
-    text.textContent = `x:${x}, y:${y}`;
+    
 
-    const ele = document.elementsFromPoint(x,y);
-    console.log(ele);
+    //const ele = document.elementsFromPoint(x,y);
+    //console.log(ele);
 
 
-    const box = document.getElementById("pos2");
-    const x2 = box.getBoundingClientRect().left + window.pageXOffset;
-    const y2 = box.getBoundingClientRect().top;
-    box.textContent = `x:${x2}, y:${y2}`;
+    const card1 = document.getElementById("card1");
+    const x2 = card1.getBoundingClientRect().x;
+    const y2 = card1.getBoundingClientRect().y;
+    const card1_text = document.getElementById("card1_pos");
+    card1_text.textContent = `x:${x2}, y:${y2}`;
+    const card1Range_text = document.getElementById("card1_range");
+    const card1_w = card1.getBoundingClientRect().width;
+    const card1_h = card1.getBoundingClientRect().height;
+    card1Range_text.textContent = `w:${x2+card1_w}, h:${y2+card1_h}`;
 
 }
 
 function init(){
     document.addEventListener("mousemove", mousemove, false);
 }
-
-const Split = class{
-    constructor(id,texts){
-        this.id = id;
-        this.texts = texts;
-    }
-} 
-
-const list = [];
 
 window.addEventListener("load",init);

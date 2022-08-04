@@ -81,7 +81,8 @@ function allDisplay(){
         const mode = 0;
         for(let i=0;i<deckList.length;i++){
             const card = deckList[i];
-            const cardImg = displayCard_All(card,mode);
+            const cardImg = displayCard(card,mode);
+            cardImg.addEventListener("mousedown", mdown2, false);
             parent.appendChild(cardImg);
         }
 
@@ -90,31 +91,24 @@ function allDisplay(){
         button.value = "一覧表示";
         const displayPanel = document.getElementById("display_panel"); 
         displayPanel.remove();
-        console.log(selectIDList);
-        selectIDList.forEach(id =>{
-            pullCard(id);
-        });
+        if(selectIDList.length != 0){
+            selectIDList.forEach(id =>{
+                pullCard(id);
+            });
+        }
         selectIDList.length = 0;
     }
 }
 
-//一覧表示のカードの表示
-function displayCard_All(card,mode=0){
-    const id = card.id;
-    const cardImg = document.createElement('img');
-    card.mode = mode;
-    cardImg.src = card.imgPath[card.mode];
-    cardImg.id = "card" + id;
-    cardImg.width = "80";
-    cardImg.addEventListener("mousedown", function(e){
-        const id = e.target.eventParam;
-        selectIDList.push(id);
-        if(cardImg.className == "") cardImg.className = "selectCard";
-        else cardImg.classList.remove("selectCard");
-    }, false);
-    cardImg.eventParam = id;
-    return cardImg;
+//選択したカードのIDをリストに追加, 要素にクラス名追加
+function mdown2(e){
+    const id = e.target.eventParam;
+    selectIDList.push(id);
+    const cardImg = document.getElementById(`card${id}`);
+    if(cardImg.className == "") cardImg.className = "selectCard";
+    else cardImg.classList.remove("selectCard");
 }
+
 
 //デッキから選択したカードを引き抜く
 function pullCard(id){
@@ -127,6 +121,7 @@ function pullCard(id){
         const card = findCard(id);
         outDeckList.push(card);
         const cardImg = displayCard(card,1);
+        cardImg.addEventListener("mousedown", mdown, false);
         const card_root = document.getElementById("card_normal");
         card_root.appendChild(cardImg);
 

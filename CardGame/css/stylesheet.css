@@ -2,16 +2,22 @@
     border: #000000 1px solid; /*境界線の指定*/
     padding:10px;
 }
+#deck {
+    text-align: right;
+    margin-left: auto;
+    width: 150px;
+    height: 200px;
+}
 
 .selectCard {
     border: #a6ff00 5px solid; /*境界線の指定*/
     padding:1px;
 }
 
-#deck {
+/* #deck {
     text-align: center;
     height: 40px;
-}
+} */
 
 /* #card_place {
     border: #000000 1px solid;

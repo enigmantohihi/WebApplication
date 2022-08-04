@@ -98,7 +98,7 @@ function displayCard(card,mode=0){
     cardImg.src = card.imgPath[card.mode];
     cardImg.id = "card" + id;
     cardImg.width = "80";
-    cardImg.addEventListener("mousedown", mdown, false);
+    //cardImg.addEventListener("mousedown", mdown, false);
     //cardImg.addEventListener("touchstart", mdown, false);
     cardImg.eventParam = id;
     return cardImg;
@@ -153,6 +153,7 @@ function drawDeck(){
     const card = deckList.shift();
     outDeckList.push(card);
     const cardImg = displayCard(card,1);
+    cardImg.addEventListener("mousedown", mdown, false);
     card_root.appendChild(cardImg);
 
     set_html();
@@ -163,6 +164,7 @@ function setOtherCard(){
         const card_root = document.getElementById("card_other");
         const card = otherList[i];
         const cardImg = displayCard(card);
+        cardImg.addEventListener("mousedown", mdown, false);
         card_root.appendChild(cardImg);
     }
 }
