@@ -116,6 +116,16 @@ function createDeck(){
     exDeckList = cardList.filter(card => {
         return card.type == 2;
     });
+    
+    if(exDeckList.length > 0){
+        const parent = document.getElementById("exDeckParent");
+        const exDeck = document.createElement("div");
+        exDeck.className = "box";
+        exDeck.id = "exDeck";
+        exDeck.innerHTML = `exデッキ残り枚数<br>${exDeckList.length}枚`;
+        parent.appendChild(exDeck);
+    }
+
     setOtherCard();
     set_html();
 }
@@ -208,7 +218,7 @@ function keyup(e) {
 }
 
 function set_html(){
-    document.getElementById("deck").textContent = `デッキ残り枚数:${deckList.length}枚`;
+    document.getElementById("deck").innerHTML = `デッキ残り枚数<br>${deckList.length}枚`;
 }
 
 const MouseState = {

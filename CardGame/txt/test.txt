@@ -1,7 +1,7 @@
 ./img/duel/dmx25-v09.jpeg,4
 /Users/enigmantohihi/Desktop/WebApplication/CardGame/img/duel/dmex18-s13.jpeg,4
 /Users/enigmantohihi/Desktop/WebApplication/CardGame/img/duel/dmex17-099a.jpeg,4
--1-
+-2-
 https://dm.takaratomy.co.jp/wp-content/card/cardimage/dm39-s03a.jpg,https://dm.takaratomy.co.jp/wp-content/card/cardimage/dm39-s03b.jpg,2
 https://dm.takaratomy.co.jp/wp-content/card/cardimage/dmbd14-001a.jpg,https://dm.takaratomy.co.jp/wp-content/card/cardimage/dmbd14-001b.jpg,https://dm.takaratomy.co.jp/wp-content/card/cardimage/dmbd14-001c.jpg,2
 

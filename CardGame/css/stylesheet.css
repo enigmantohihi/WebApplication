@@ -3,7 +3,13 @@
     padding:10px;
 }
 #deck {
-    text-align: right;
+    text-align: center;
+    margin-left: auto;
+    width: 150px;
+    height: 200px;
+}
+#exDeck {
+    text-align: center;
     margin-left: auto;
     width: 150px;
     height: 200px;
