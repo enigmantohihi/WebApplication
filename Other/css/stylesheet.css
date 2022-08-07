@@ -19,17 +19,68 @@ body {
     object-fit: cover;
 }
 
+
 .container {
     margin: 10px auto;
-    width: 80%;
+    width: 90%;
 }
 
 section {
+    margin-bottom: 5px;
     text-align: center;
     background-color: white;
     border: solid;
     border-color: black;
     border-radius: 4px;
+}
+
+div {
+    text-align: center;
+    margin-bottom: 10px;
+}
+.blockParent {
+    
+}
+
+.blockA {
+    float: left;
+    width: 100px;
+    border: solid;
+    border-color: black;
+    border-radius: 4px;
+    background-color: rgb(230, 166, 179);
+}
+
+.blockB {
+    border: solid;
+    border-color: black;
+    border-radius: 4px;
+    background-color: mediumaquamarine;
+}
+.blockB::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.blockC {
+    float: right;
+    width: 100px;
+    border: solid;
+    border-color: black;
+    border-radius: 4px;
+    background-color: rgb(245, 255, 210);
+}
+
+
+.deck {
+    width: 50%;
+    margin-left: auto;
+
+    transition: 1s;
+}
+.deck:hover {
+    background-color: rgb(255, 225, 161);
 }
 
 footer {
@@ -38,4 +89,8 @@ footer {
     background: rgb(60, 60, 60);
     color: #fff;
     text-align: center;
+}
+
+hr {
+    margin: 10px 20px;
 }
