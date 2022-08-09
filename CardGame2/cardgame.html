@@ -5,12 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/stylesheet.css">
-    <title>WebSite</title>
+    <script src="./js/main.js"></script>
+    <script src="./js/module.js"></script>
+    <title>CardGame2</title>
 </head>
 <body>
+    <div class="overlay">
+        <div class="overlay-content">
+            <h2>オーバーレイ</h2>
+            <p>ここにデッキの中身のカードを表示する</p>
+        </div>
+    </div>
     <header>
         <img class="header-img" src="./img/182.jpg">
-
     </header>
     <main>
         <div class="container">
@@ -23,31 +30,34 @@
             <div class="option">
                 <h5 style="margin: 10px 0px;">デッキ選択</h5>
                 <hr>
-                <input type="file">
+                <input type="file" id="input-file">
             </div>
             <hr>
 
             <div class="blockParent">
                 <div class="blockA">
-                    <h3>Aゾーン</h3>
-                    <div class="deck">
+                    <div class="deck" id="exDeck">
                         <h5>exデッキ</h5>
-                        <p>00枚</p>
+                        <p id="exDeck-text">00枚</p>
                         <hr>
-                        <button>button</button>
+                        <button onclick="console.log('aaa');">引く</button>
+                    </div>
+                    <div class="card_place" id="card_place2">
+
                     </div>
                 </div>
                 <div class="blockC">
-                    <h3>Cゾーン</h3>
                     <div class="deck">
                         <h5>デッキ</h5>
-                        <p>00枚</p>
+                        <p id="deck-text">00枚</p>
                         <hr>
-                        <button>button</button>
+                        <button onclick="drawDeck()">引く</button>
                     </div>
                 </div>
                 <div class="blockB">
-                    <h3>Bゾーン</h3>
+                    <div class="card_place" id="card_place">
+
+                    </div>
                 </div>
 
                 
@@ -67,7 +77,6 @@
                 <hr>
             </section>
             <hr>
-            
         </div>
         
     </main>
