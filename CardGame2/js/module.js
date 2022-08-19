@@ -59,6 +59,19 @@ function textToDeck(fileText){
     createDeck();
 }
 
+function opencloseOverlay(){
+    const overlay = document.getElementById("overlay-deck");
+    const className = overlay.classList;
+    if(className == "overlay-open"){
+        overlay.classList = "overlay-close";
+
+    } else if(className == "overlay-close"){
+        overlay.classList = "overlay-open";
+        
+    }
+    
+}
+
 //デッキの中身を全表示,選択したカードを出す
 function allDisplay(){
     const button = document.getElementById("allDisplayButton");

@@ -23,7 +23,19 @@ h3, h5 {
     object-fit: cover;
 }
 
-.overlay {
+.overlay-open {
+    /* display: none; */
+    /* visibility: hidden; */
+    position: fixed;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(100, 100, 100, .8);
+    z-index: 2147483647;
+    text-align: center;
+    transition: 1s;
+}
+
+.overlay-close {
     display: none;
     position: fixed;
     left: 0; top: 0;
@@ -31,6 +43,7 @@ h3, h5 {
     background: rgba(100, 100, 100, .8);
     z-index: 2147483647;
     text-align: center;
+    transition: 1s;
 }
 
 .overlay-content {
@@ -47,8 +60,14 @@ h3, h5 {
     left: 0;
     margin: auto;
     background-color: #fff;
+}
 
+.overlay-content-card {
     overflow: auto;
+    height: 70%;
+    width: 90%;
+    margin: 0px auto;
+    background-color: rgb(238, 238, 238);
 }
 
 .container {
@@ -134,7 +153,8 @@ div {
 
 .card_place {
     height: 300px;
-    width: 100%;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 footer {
@@ -147,4 +167,8 @@ footer {
 
 .deck hr {
     margin: 5px 5px;
+}
+
+.card {
+    width: 20%;
 }

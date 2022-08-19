@@ -64,6 +64,7 @@ function keyup(e) {
 
 function set_html(){
     document.getElementById("deck-text").textContent = `${deckList.length}枚`;
+    document.getElementById("exDeck-text").textContent = `${exDeckList.length}枚`;
 }
 
 function mdown(e) {
@@ -75,12 +76,12 @@ function mdown(e) {
     //選択したカードのクラス名を追加する、それ以外のカードはクラス名削除
     for(let i=0;i<outDeckList.length;i++){
         const id = outDeckList[i].id;
-        if(id==selectID) document.getElementById(`card${id}`).className = "selectCard";
+        if(id==selectID) document.getElementById(`card${id}`).className += " selectCard";
         else document.getElementById(`card${id}`).classList.remove("selectCard");
     }
     for(let i=0;i<otherList.length;i++){
         const id = otherList[i].id;
-        if(id==selectID) document.getElementById(`card${id}`).className = "selectCard";
+        if(id==selectID) document.getElementById(`card${id}`).className += " selectCard";
         else document.getElementById(`card${id}`).classList.remove("selectCard");
     }
 
@@ -123,6 +124,7 @@ function mmove(e) {
 
     //マウスが動いた場所に要素を動かす
     selectCard.style.position = "absolute";
+    selectCard.style.width = '18%';
     selectCard.style.top = event.pageY - y + "px";
     selectCard.style.left = event.pageX - x + "px";
 
@@ -160,14 +162,11 @@ function click(){
 
 function displayCard(card,mode=0){
     const id = card.id;
-    //const cardMode = (mode>=0)?mode:card.mode;
     const cardImg = document.createElement('img');
     card.mode = mode;
+    cardImg.className = "card";
     cardImg.src = card.imgPath[card.mode];
     cardImg.id = "card" + id;
-    cardImg.width = "80";
-    //cardImg.addEventListener("mousedown", mdown, false);
-    //cardImg.addEventListener("touchstart", mdown, false);
     cardImg.eventParam = id;
     return cardImg;
 }

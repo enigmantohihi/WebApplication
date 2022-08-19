@@ -10,10 +10,13 @@
     <title>CardGame2</title>
 </head>
 <body>
-    <div class="overlay">
+    <div class="overlay-close" id="overlay-deck">
         <div class="overlay-content">
+            <button onclick="opencloseOverlay()">close</button>
             <h2>オーバーレイ</h2>
             <p>ここにデッキの中身のカードを表示する</p>
+            <div class="overlay-content-card">
+            </div>
         </div>
     </div>
     <header>
@@ -23,14 +26,21 @@
         <div class="container">
 
             <div class="option">
-                <h5 style="margin: 10px 0px;">背景色</h5>
+                <h5>背景色</h5>
                 <input type="color">
             </div>
             <hr>
             <div class="option">
-                <h5 style="margin: 10px 0px;">デッキ選択</h5>
+                <h5>デッキ選択</h5>
                 <hr>
                 <input type="file" id="input-file">
+            </div>
+            <hr>
+
+            <div class="option">
+                <h5>デッキ確認</h5>
+                <hr>
+                <button onclick="opencloseOverlay()">見る</button>
             </div>
             <hr>
 

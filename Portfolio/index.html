@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>ポートフォリオ</title>
+</head>
+<body>
+    <header>
+        <a href="./index.html">
+            <img src="./img/header.jpg" alt="header-img" class="header-img">
+        </a>
+    </header>
+    <main>
+        <div class="container">
+            <div class="box">
+                <ol>
+                    <li><a href="#game1">目次1</a></li>
+                    <li><a href="#game2">目次2</a></li>
+                </ol>
+            </div>
+            <div id="game1">
+                <h3>1 戦車の対戦ゲーム</h3>
+                <div class="video">
+                    <iframe src="https://drive.google.com/file/d/1s8qM8L13_b9DDaaTSCyjRXikko4JMlth/preview" class="video" allow="autoplay">
+                    </iframe>
+                </div>
+                <p>
+                    Unityでスマートフォン向けアプリとして開発しました。
+                    自分の戦車を操作して相手と対戦します。
+                    現在は撃った弾が相手に当たるまで消えずに残り続ける<b>弾幕モード</b>、
+                    カーリングの弾を撃って真ん中に配置する<b>カーリングモード</b>の2つがあります。
+                </p>
+                <p>
+                    最初は3Dゲームとして開発していました。しかしシェーダーやライティングの知識が無く
+                    安っぽい見た目になってしまうことが避けられませんでした。<br>
+                    そうして現在のドットで表現したゲームになりました。
+                    <div class="box">
+                        <div class="img-h">
+                            <img src="./img/tank/旧ミニ戦車バトル1.PNG" alt="">
+                            <img src="./img/tank/旧ミニ戦車バトル2.PNG" alt="">
+                        </div>
+                        <p class="detail">開発当初の3D時代</p>
+                    </div>
+                </p>
+                
+                <p>
+                    最大4人でオンライン対戦することが可能です。<br>
+                    しかし、プレイ人口が少なくなかなかマッチングしないという問題点を抱えています。<br>
+                    原因の一つにモードが複数あるせいでプレイヤーが分散してしまう点が挙げられます。<br>
+                    そのためランダムマッチ参加ボタンを1つに統合し、マッチング後に対戦モードを抽選することで<br>
+                    ばらつきを抑えることができると考えています。
+                </p>
+            </div>
+            <hr>
+            <div id="game2">
+                <h3>2 戦車の対戦ゲーム</h3>
+                <div class="video">
+                    <iframe src="https://drive.google.com/file/d/1s8qM8L13_b9DDaaTSCyjRXikko4JMlth/preview" class="video" allow="autoplay">
+                    </iframe>
+                </div>
+            </div>
+            
+        </div>
+
+       
+
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>
