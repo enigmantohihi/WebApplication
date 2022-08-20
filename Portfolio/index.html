@@ -8,19 +8,24 @@
     <title>ポートフォリオ</title>
 </head>
 <body>
-    <header>
+    <header id="header">
         <a href="./index.html">
             <img src="./img/header.jpg" alt="header-img" class="header-img">
         </a>
     </header>
     <main>
         <div class="container">
+            <h2>開発したアプリケーション</h2>
             <div class="box">
                 <ol>
-                    <li><a href="#game1">目次1</a></li>
-                    <li><a href="#game2">目次2</a></li>
+                    <li><a href="#game1">戦車の対戦ゲーム</a></li>
+                    <li><a href="#game2">チキンレースゲーム</a></li>
+                    <li><a href="#game3">車のパズルゲーム</a></li>
+                    <li><a href="#game4">2Dアクション作成ゲーム</a></li>
+                    <li><a href="#game5">カードゲーム対戦ツール</a></li>
                 </ol>
             </div>
+            <hr>
             <div id="game1">
                 <h3>1 戦車の対戦ゲーム</h3>
                 <div class="video">
@@ -29,9 +34,12 @@
                 </div>
                 <p>
                     Unityでスマートフォン向けアプリとして開発しました。
-                    自分の戦車を操作して相手と対戦します。
+                    自分の戦車を操作して相手と対戦するゲームです。
                     現在は撃った弾が相手に当たるまで消えずに残り続ける<b>弾幕モード</b>、
                     カーリングの弾を撃って真ん中に配置する<b>カーリングモード</b>の2つがあります。
+                </p>
+                <p>
+                    Googleスプレッドシートと連携してランキング機能も実装しました。
                 </p>
                 <p>
                     最初は3Dゲームとして開発していました。しかしシェーダーやライティングの知識が無く
@@ -56,20 +64,72 @@
             </div>
             <hr>
             <div id="game2">
-                <h3>2 戦車の対戦ゲーム</h3>
+                <h3>2 チキンレースゲーム</h3>
                 <div class="video">
-                    <iframe src="https://drive.google.com/file/d/1s8qM8L13_b9DDaaTSCyjRXikko4JMlth/preview" class="video" allow="autoplay">
+                    <iframe src="https://drive.google.com/file/d/1TErowGlsOpBBdq3cDZT15kaKJZiDYRtg/preview" width="640" height="480" allow="autoplay">
                     </iframe>
                 </div>
+                <p>
+                    Unityでスマートフォン向けアプリとして開発しました。<br>
+                    指定された時間のギリギリで止めて相手と対戦します。<br>
+                    体内時計で時間を測って目標の時間との誤差が少ないプレイヤーが相手に攻撃できます。<br>
+                    しかし目標の時間を超えてしまうとその時点でダメージを受けてしまうという
+                    チキンレースという要素を取り入れました。
+                </p>
             </div>
-            
+            <hr>
+            <div id="game3">
+                <h3>3 車のパズルゲーム</h3>
+                <div class="video">
+                    <iframe src="https://drive.google.com/file/d/1gnU7GP-ih0g7J76J1u71zxw3nLYoHhJr/preview?t=65"  width="640" height="480" allow="autoplay">
+                    </iframe>
+                </div>
+                <p>
+                    Unityでスマートフォン向けアプリとして開発しました。<br>
+                    ステージには車とコインとゴール地点があります。<br>
+                    このコインを全て取ってゴールまで車を導くことができればステージクリアとなります。<br>
+                    上下左右の矢印パネルをステージに置くことができます。このパネルを踏むことで車は方向転換ができます。<br>
+                </p>
+            </div>
+            <hr>
+            <div id="game4">
+                <h3>4 2Dアクション作成ゲーム</h3>
+                <div class="video">
+                    <iframe src="https://drive.google.com/file/d/1xvvTnTNLXfDOHN6Rb-TIAalUVk0vCus1/preview" width="640" height="480" allow="autoplay">
+                    </iframe>
+                </div>
+                <p>
+                    Unityでスマートフォン向けアプリとして開発しました。<br>
+                    ステージを作成、アップロードして他人に共有して遊んでもらったり他の人のステージを遊ぶことができるゲームです。<br>
+                </p>
+            </div>
+            <hr>
+            <div id="game5">
+                <h3>5 カードゲーム対戦ツール</h3>
+                <img src="./img/cardtool/unity.png" alt="" class="cardgametool-img">
+                <p>
+                    大学の長期休み中にとあるカードゲームがやりたくなったためスタンドアロンアプリとして開発しました。<br>
+                    ローカルのフォルダ内やWeb上の画像にアクセスしてカードを生成するため好きなカードを使用できます。<br>
+                    まともに再現しようとすると膨大な時間が必要になるため
+                    カードを自分で動かせるようにすることでカードの効果を擬似的に再現しています。<br>
+                    相手と互いに画面共有することで離れていても対戦することができます。
+                    勿論配布はしていません。あくまで友人間と趣味で利用する目的で開発しました。<br>
+                    最近はJavaScriptの勉強の一環としてWebアプリケーション版も開発しました。
+                </p>
+                <div class="box">
+                    <div class="img-h">
+                        <img src="./img/cardtool/js.png" alt="">
+                    </div>
+                    <p class="detail">Webアプリケーション版</p>
+                </div>
+            </div>
         </div>
 
        
 
     </main>
     <footer>
-
+        <a href="#header">トップに戻る</a>
     </footer>
 </body>
 </html>

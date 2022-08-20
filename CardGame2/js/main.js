@@ -124,7 +124,6 @@ function mmove(e) {
 
     //マウスが動いた場所に要素を動かす
     selectCard.style.position = "absolute";
-    selectCard.style.width = '18%';
     selectCard.style.top = event.pageY - y + "px";
     selectCard.style.left = event.pageX - x + "px";
 
